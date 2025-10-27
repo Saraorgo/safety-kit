@@ -509,6 +509,18 @@
             margin-bottom: 20px;
             font-size: 1.8em;
         }
+
+        .shared-notice {
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            padding: 12px 18px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
         
         .recognition-input-group {
             display: flex;
@@ -539,12 +551,26 @@
             transform: scale(1.05);
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
+
+        .recognition-input-group button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
         
         .recognition-list {
             display: grid;
             gap: 12px;
-            max-height: 300px;
+            max-height: 400px;
             overflow-y: auto;
+        }
+
+        .loading-message {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            font-style: italic;
         }
         
         .recognition-item {
@@ -594,6 +620,12 @@
             background: #c0392b;
             transform: scale(1.08);
             box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .delete-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
         }
         
         /* Modal */
@@ -795,22 +827,17 @@
         <!-- Recognition Board -->
         <div class="recognition-section">
             <h2>📋 Tablero de Reconocimiento</h2>
-            <p style="margin-bottom: 20px;">Comparte un agradecimiento o reconocimiento al equipo</p>
+            <div class="shared-notice">
+                🌐 <strong>Tablero compartido:</strong> Los reconocimientos son visibles para todos los usuarios del kit
+            </div>
             
             <div class="recognition-input-group">
                 <input type="text" id="recognitionInput" placeholder="Ej: Gracias por escuchar con paciencia..." />
-                <button onclick="addRecognition()">Agregar 💚</button>
+                <button id="addRecognitionBtn" onclick="addRecognition()">Agregar 💚</button>
             </div>
             
             <div class="recognition-list" id="recognitionList">
-                <div class="recognition-item">
-                    <span class="recognition-text">💚 "Gracias por escuchar con paciencia."</span>
-                    <button class="delete-btn" onclick="this.parentElement.remove()">🗑️ Eliminar</button>
-                </div>
-                <div class="recognition-item">
-                    <span class="recognition-text">✨ "Aprecio que hayas sido tan claro(a) al explicar."</span>
-                    <button class="delete-btn" onclick="this.parentElement.remove()">🗑️ Eliminar</button>
-                </div>
+                <div class="loading-message">⏳ Cargando reconocimientos...</div>
             </div>
         </div>
     </div>
@@ -842,270 +869,4 @@
             <p style="font-size: 1.1em;">Amplía tus conocimientos sobre seguridad psicológica con nuestro curso completo en Bloom.</p>
             
             <div style="text-align: center; margin: 30px 0;">
-                <div style="width: 150px; height: 150px; background: white; margin: 0 auto; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 4em; box-shadow: 0 5px 20px rgba(0,0,0,0.1);">
-                    📲
-                </div>
-                <p style="margin-top: 20px; color: #5a6c7d;">Escanea el código QR en tu tarjeta física para acceder</p>
-            </div>
-            
-            <button class="close-modal" onclick="closeModal('bloomModal')">Cerrar</button>
-        </div>
-    </div>
-    
-    <div class="spray-effect" id="sprayEffect">💨</div>
-    
-    <script>
-        const questions = {
-            inicio: [
-                "¿Cómo nos sentimos hoy?",
-                "¿Qué necesitamos para participar tranquilo(a)s?",
-                "¿Cuál es el objetivo de nuestra reunión?"
-            ],
-            durante: [
-                "¿Ya escuchamos todos los puntos de vista?",
-                "¿Nos estamos haciendo entender?",
-                "¿Necesitamos algún ejemplo para entender mejor?"
-            ],
-            cierre: [
-                "¿Cuál es la idea que me llevo de la conversación?",
-                "¿Qué apreciamos de cómo nos escuchamos hoy?",
-                "¿Qué tareas nos llevamos para seguir avanzando?"
-            ]
-        };
-        
-        const phaseLabels = {
-            inicio: '🟢 Inicio',
-            durante: '🟡 Durante',
-            cierre: '🔵 Cierre'
-        };
-        
-        let currentPhase = 'inicio';
-        let cardDisplayMode = 'all';
-        
-        function setPhase(phase) {
-            currentPhase = phase;
-            
-            // Update phase buttons
-            document.querySelectorAll('.phase-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
-            
-            // Update questions
-            updateQuestions();
-        }
-        
-        function setCardMode(mode) {
-            cardDisplayMode = mode;
-            
-            // Update mode buttons
-            document.querySelectorAll('.mode-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
-            
-            updateQuestions();
-        }
-        
-        function updateQuestions() {
-            const container = document.getElementById('questionsContainer');
-            container.innerHTML = '';
-            
-            let questionsToShow = [];
-            
-            if (cardDisplayMode === 'current') {
-                // Show only current phase questions
-                questions[currentPhase].forEach((question, index) => {
-                    questionsToShow.push({
-                        text: question,
-                        phase: currentPhase,
-                        id: `${currentPhase}-${index}`
-                    });
-                });
-            } else {
-                // Show all questions
-                Object.keys(questions).forEach(phase => {
-                    questions[phase].forEach((question, index) => {
-                        questionsToShow.push({
-                            text: question,
-                            phase: phase,
-                            id: `${phase}-${index}`
-                        });
-                    });
-                });
-            }
-            
-            questionsToShow.forEach(q => {
-                const card = document.createElement('div');
-                card.className = `question-card ${q.phase}`;
-                card.setAttribute('data-id', q.id);
-                
-                const badge = document.createElement('div');
-                badge.className = `question-phase-badge ${q.phase}`;
-                badge.textContent = phaseLabels[q.phase];
-                
-                const text = document.createElement('div');
-                text.textContent = q.text;
-                text.style.paddingTop = '25px';
-                
-                card.appendChild(badge);
-                card.appendChild(text);
-                card.onclick = () => copyQuestion(q.text, card);
-                
-                container.appendChild(card);
-            });
-        }
-        
-        function copyQuestion(text, cardElement) {
-            navigator.clipboard.writeText(text).then(() => {
-                cardElement.classList.add('card-flip-animation');
-                showNotification('✅ Pregunta copiada: ' + text.substring(0, 30) + '...');
-                
-                setTimeout(() => {
-                    cardElement.classList.remove('card-flip-animation');
-                }, 600);
-            });
-        }
-        
-        function shuffleCards() {
-            const container = document.getElementById('questionsContainer');
-            const cards = Array.from(container.children);
-            
-            // Shuffle array
-            for (let i = cards.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [cards[i], cards[j]] = [cards[j], cards[i]];
-            }
-            
-            // Clear and re-append in shuffled order
-            container.innerHTML = '';
-            cards.forEach(card => {
-                card.style.animation = 'cardFlip 0.6s ease';
-                container.appendChild(card);
-            });
-            
-            showNotification('🔀 Cartas mezcladas');
-        }
-        
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                showNotification('✅ Pregunta copiada al portapapeles');
-            });
-        }
-        
-        function showNotification(message) {
-            const notification = document.createElement('div');
-            notification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%);
-                color: white;
-                padding: 15px 25px;
-                border-radius: 10px;
-                box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-                z-index: 2000;
-                animation: slideIn 0.3s ease;
-            `;
-            notification.textContent = message;
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.style.animation = 'slideOut 0.3s ease';
-                setTimeout(() => notification.remove(), 300);
-            }, 2000);
-        }
-        
-        function selectVoiceCard(card, color) {
-            // Remove all selections
-            document.querySelectorAll('.voice-card').forEach(c => {
-                c.classList.remove('selected');
-            });
-            
-            // Select this card
-            card.classList.add('selected');
-            
-            const messages = {
-                green: '🟢 Estoy escuchando atentamente',
-                yellow: '🟡 Tengo una pregunta',
-                orange: '🟠 Podemos reformular esto'
-            };
-            
-            showNotification(messages[color]);
-        }
-        
-        function activateSpray() {
-            const effect = document.getElementById('sprayEffect');
-            effect.classList.add('active');
-            showNotification('🌿 Momento de calma activado');
-            
-            setTimeout(() => {
-                effect.classList.remove('active');
-            }, 1500);
-        }
-        
-        function showFaro() {
-            document.getElementById('faroModal').classList.add('active');
-        }
-        
-        function showBloom() {
-            document.getElementById('bloomModal').classList.add('active');
-        }
-        
-        function closeModal(modalId) {
-            document.getElementById(modalId).classList.remove('active');
-        }
-        
-        function addRecognition() {
-            const input = document.getElementById('recognitionInput');
-            const text = input.value.trim();
-            
-            if (text) {
-                const list = document.getElementById('recognitionList');
-                const item = document.createElement('div');
-                item.className = 'recognition-item';
-                
-                const emojis = ['💚', '✨', '🌟', '💫', '🙌', '👏', '💙', '🎯'];
-                const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
-                
-                const textSpan = document.createElement('span');
-                textSpan.className = 'recognition-text';
-                textSpan.textContent = randomEmoji + ' "' + text + '"';
-                
-                const deleteBtn = document.createElement('button');
-                deleteBtn.className = 'delete-btn';
-                deleteBtn.textContent = '🗑️ Eliminar';
-                deleteBtn.onclick = function() {
-                    item.remove();
-                };
-                
-                item.appendChild(textSpan);
-                item.appendChild(deleteBtn);
-                
-                list.insertBefore(item, list.firstChild);
-                
-                input.value = '';
-            }
-        }
-        
-        document.getElementById('recognitionInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                addRecognition();
-            }
-        });
-        
-        // Close modals when clicking outside
-        document.querySelectorAll('.modal').forEach(modal => {
-            modal.addEventListener('click', function(e) {
-                if (e.target === modal) {
-                    modal.classList.remove('active');
-                }
-            });
-        });
-        
-        // Initialize questions
-        updateQuestions();
-    </script>
-</body>
-
-</html>
+                <div style="width: 150px; height: 150
