@@ -66,7 +66,7 @@
         .recognition-input-group button { padding: 15px 30px; background: white; color: #4facfe; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; transition: all 0.3s; }
         .recognition-input-group button:hover:not(:disabled) { transform: scale(1.05); }
         .recognition-input-group button:disabled { opacity: 0.5; cursor: not-allowed; }
-        .recognition-list { display: grid; gap: 12px; max-height: 400px; overflow-y: auto; }
+        .recognition-list { display: grid; gap: 12px; max-height: 400px; overflow-y: auto; -webkit-overflow-scrolling: touch; }
         .recognition-item { background: rgba(255,255,255,0.2); padding: 18px; border-radius: 10px; border-left: 4px solid white; display: flex; justify-content: space-between; align-items: center; gap: 15px; animation: slideIn 0.5s ease; }
         @keyframes slideIn { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
         .recognition-text { flex: 1; word-break: break-word; }
@@ -75,21 +75,49 @@
         .delete-btn:disabled { opacity: 0.5; cursor: not-allowed; }
         .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); z-index: 1000; align-items: center; justify-content: center; }
         .modal.active { display: flex; }
-        .modal-content { background: white; border-radius: 20px; padding: 40px; max-width: 700px; width: 90%; max-height: 80vh; overflow-y: auto; }
+        .modal-content { background: white; border-radius: 20px; padding: 40px; max-width: 700px; width: 90%; max-height: 80vh; overflow-y: auto; -webkit-overflow-scrolling: touch; }
         .modal-content h3 { color: #2c3e50; margin-bottom: 20px; font-size: 1.8em; }
         .modal-content h4 { color: #2c3e50; margin-top: 20px; margin-bottom: 10px; }
         .modal-content p { color: #5a6c7d; line-height: 1.8; margin-bottom: 15px; }
         .modal-content .kit-item { background: #f8f9fa; padding: 15px; border-radius: 10px; margin-bottom: 15px; border-left: 4px solid #4facfe; }
         .close-modal { background: #e74c3c; color: white; border: none; padding: 12px 25px; border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 20px; transition: all 0.3s; }
         .close-modal:hover { background: #c0392b; transform: scale(1.05); }
-        .spray-effect { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 10em; opacity: 0; pointer-events: none; transition: all 1.5s; z-index: 999; }
-        .spray-effect.active { opacity: 0.4; font-size: 20em; }
-        .spray-message { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(168, 230, 207, 0.95); padding: 30px; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.3); opacity: 0; pointer-events: none; transition: all 0.5s; z-index: 998; text-align: center; max-width: 500px; }
+        .spray-effect { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 10em; opacity: 0; pointer-events: none; transition: all 1.5s; z-index: 999; width: 100%; max-width: 300px; display: flex; justify-content: center; align-items: center; }
+        .spray-effect.active { opacity: 0.4; }
+        .spray-message { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(168, 230, 207, 0.95); padding: 30px; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.3); opacity: 0; pointer-events: none; transition: all 0.5s; z-index: 998; text-align: center; max-width: 500px; width: 90%; }
         .spray-message.active { opacity: 1; }
-        .spray-message h3 { color: #2c3e50; margin-bottom: 10px; }
-        .spray-message p { color: #5a6c7d; }
-        @media (max-width: 1024px) { .interactive-workspace { grid-template-columns: 1fr; } }
-        @media (max-width: 768px) { .color-cards-grid { grid-template-columns: 1fr; } .phase-selector { flex-direction: column; } }
+        .spray-message h3 { color: #2c3e50; margin-bottom: 10px; font-size: 1.3em; }
+        .spray-message p { color: #5a6c7d; font-size: 0.95em; }
+        @media (max-width: 1024px) { 
+            .interactive-workspace { grid-template-columns: 1fr; } 
+            .questions-grid { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
+        }
+        @media (max-width: 768px) { 
+            .color-cards-grid { grid-template-columns: 1fr; } 
+            .phase-selector { flex-direction: column; }
+            .questions-grid { grid-template-columns: 1fr; }
+            .recognition-item { flex-direction: column; align-items: flex-start; }
+            .delete-btn { align-self: flex-end; width: 100%; margin-top: 10px; }
+            .modal-content { padding: 25px; max-height: 85vh; }
+            h1 { font-size: 1.5em; }
+            .hero-boat { padding: 20px; }
+            .simple-boat { font-size: 3.5em; }
+            .meeting-phase, .voice-meter, .quick-actions, .truth-cards-section, .recognition-section { padding: 20px; }
+            .recognition-input-group { flex-direction: column; }
+            .recognition-input-group button { width: 100%; }
+        }
+        @media (max-width: 480px) {
+            body { padding: 10px; }
+            .phase-btn { min-width: 100px; padding: 12px 15px; font-size: 0.9em; }
+            .voice-card { padding: 20px 10px; }
+            .card-icon { font-size: 2em; }
+            .card-title { font-size: 1em; }
+            .action-btn { padding: 15px; font-size: 0.95em; }
+            .question-card { padding: 20px; min-height: 80px; font-size: 0.95em; }
+            .modal-content { padding: 20px; }
+            .modal-content h3 { font-size: 1.4em; }
+            .kit-item { padding: 12px; }
+        }
     </style>
 </head>
 <body>
@@ -158,7 +186,6 @@
         <div class="recognition-section">
             <h2>💌 Tablero de Reconocimiento</h2>
             <p style="margin-bottom: 15px;">Al final de la reunión, escribe un pequeño agradecimiento. Pequeños gestos refuerzan la confianza y el sentido de equipo.</p>
-            <div class="shared-notice">🌐 <strong>Tablero compartido en tiempo real:</strong> Los reconocimientos son visibles para todos los usuarios del kit</div>
             <div class="recognition-input-group">
                 <input type="text" id="recognitionInput" placeholder='Ej: "Gracias por escuchar con paciencia"' maxlength="200" />
                 <button id="addBtn" onclick="addRecognition()">Agregar 💚</button>
@@ -231,12 +258,14 @@
     <div id="bloomModal" class="modal">
         <div class="modal-content">
             <h3>🎧 Seguridad Psicológica en Bloom</h3>
-            <p>Cada kit incluye una tarjeta con código QR que te lleva al curso de Bloom sobre seguridad psicológica.</p>
+            <p>Amplía tus conocimientos sobre seguridad psicológica con nuestros recursos y cursos en Bloom.</p>
             <div style="text-align: center; margin: 30px 0;">
-                <div style="width: 150px; height: 150px; background: #f0f0f0; margin: 0 auto; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 4em;">📲</div>
-                <p style="margin-top: 20px; color: #5a6c7d; font-weight: 600;">Escanea el código QR en tu tarjeta física</p>
+                <a href="https://takeda.edcast.com/smartsearch?q=Seguridad+psicologica" target="_blank" style="text-decoration: none;">
+                    <div style="width: 150px; height: 150px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); margin: 0 auto; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 4em; cursor: pointer; transition: all 0.3s; box-shadow: 0 5px 20px rgba(0,0,0,0.2);" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">📚</div>
+                    <p style="margin-top: 20px; color: #667eea; font-weight: 600; font-size: 1.1em;">Haz clic para acceder a los recursos</p>
+                </a>
             </div>
-            <p>Descubre herramientas para crear espacios donde todos se sientan seguros para compartir ideas y aprender de los errores.</p>
+            <p>Descubre herramientas, cursos y recursos para crear espacios donde todos se sientan seguros para compartir ideas y aprender de los errores.</p>
             <button class="close-modal" onclick="closeModal('bloomModal')">Cerrar</button>
         </div>
     </div>
@@ -260,6 +289,65 @@
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
     <script>
+        // Sound effects using Web Audio API
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        
+        function playSound(type) {
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            switch(type) {
+                case 'click':
+                    oscillator.frequency.value = 800;
+                    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+                    oscillator.start(audioContext.currentTime);
+                    oscillator.stop(audioContext.currentTime + 0.1);
+                    break;
+                case 'success':
+                    oscillator.frequency.value = 600;
+                    gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+                    oscillator.start(audioContext.currentTime);
+                    oscillator.frequency.exponentialRampToValueAtTime(800, audioContext.currentTime + 0.1);
+                    oscillator.stop(audioContext.currentTime + 0.3);
+                    break;
+                case 'delete':
+                    oscillator.frequency.value = 400;
+                    gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
+                    oscillator.start(audioContext.currentTime);
+                    oscillator.frequency.exponentialRampToValueAtTime(200, audioContext.currentTime + 0.1);
+                    oscillator.stop(audioContext.currentTime + 0.2);
+                    break;
+                case 'breath':
+                    oscillator.type = 'sine';
+                    oscillator.frequency.value = 220;
+                    gainNode.gain.setValueAtTime(0.15, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 1);
+                    oscillator.start(audioContext.currentTime);
+                    oscillator.frequency.exponentialRampToValueAtTime(180, audioContext.currentTime + 0.5);
+                    oscillator.stop(audioContext.currentTime + 1);
+                    break;
+                case 'shuffle':
+                    for(let i = 0; i < 3; i++) {
+                        const osc = audioContext.createOscillator();
+                        const gain = audioContext.createGain();
+                        osc.connect(gain);
+                        gain.connect(audioContext.destination);
+                        osc.frequency.value = 600 + (i * 200);
+                        gain.gain.setValueAtTime(0.1, audioContext.currentTime + (i * 0.05));
+                        gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + (i * 0.05) + 0.1);
+                        osc.start(audioContext.currentTime + (i * 0.05));
+                        osc.stop(audioContext.currentTime + (i * 0.05) + 0.1);
+                    }
+                    break;
+            }
+        }
+        
         // Firebase configuration - Your Takeda Safety Kit Database
         const firebaseConfig = {
             apiKey: "AIzaSyDE1460OmvvTk8S0gVJTbUU4JAHXS-f8EM",
@@ -306,6 +394,7 @@
         });
         
         function setPhase(phase) {
+            playSound('click');
             currentPhase = phase;
             document.querySelectorAll('.phase-btn').forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
@@ -313,6 +402,7 @@
         }
         
         function setCardMode(mode) {
+            playSound('click');
             cardDisplayMode = mode;
             document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
@@ -341,12 +431,17 @@
                 text.style.paddingTop = '25px';
                 card.appendChild(badge);
                 card.appendChild(text);
-                card.onclick = () => { navigator.clipboard.writeText(q.text); showNotification('✅ Copiado: ' + q.text.substring(0, 30) + '...'); };
+                card.onclick = () => { 
+                    playSound('click');
+                    navigator.clipboard.writeText(q.text); 
+                    showNotification('✅ Copiado: ' + q.text.substring(0, 30) + '...'); 
+                };
                 container.appendChild(card);
             });
         }
         
         function shuffleCards() {
+            playSound('shuffle');
             const container = document.getElementById('questionsContainer');
             const cards = Array.from(container.children);
             for (let i = cards.length - 1; i > 0; i--) {
@@ -407,7 +502,10 @@
                 const btn = document.createElement('button');
                 btn.className = 'delete-btn';
                 btn.textContent = '🗑️ Eliminar';
-                btn.onclick = () => deleteRecognition(item.key);
+                btn.onclick = () => {
+                    playSound('delete');
+                    deleteRecognition(item.key);
+                };
                 div.appendChild(text);
                 div.appendChild(btn);
                 list.appendChild(div);
@@ -439,6 +537,7 @@
                 });
                 
                 input.value = '';
+                playSound('success');
                 showNotification('✅ Reconocimiento agregado');
             } catch (e) {
                 showNotification('❌ Error al guardar');
@@ -465,6 +564,7 @@
         }
         
         function selectVoiceCard(card, color) {
+            playSound('click');
             document.querySelectorAll('.voice-card').forEach(c => c.classList.remove('selected'));
             card.classList.add('selected');
             const msgs = { green: '🟢 Escuchando atentamente', yellow: '🟡 Tengo una pregunta', orange: '🟠 Reformulemos esto' };
@@ -472,6 +572,7 @@
         }
         
         function activateBreathing() {
+            playSound('breath');
             const effect = document.getElementById('breathingEffect');
             const message = document.getElementById('breathingMessage');
             effect.classList.add('active');
@@ -483,9 +584,18 @@
             }, 8000);
         }
         
-        function showFaro() { document.getElementById('faroModal').classList.add('active'); }
-        function showBloom() { document.getElementById('bloomModal').classList.add('active'); }
-        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+        function showFaro() { 
+            playSound('click');
+            document.getElementById('faroModal').classList.add('active'); 
+        }
+        function showBloom() { 
+            playSound('click');
+            document.getElementById('bloomModal').classList.add('active'); 
+        }
+        function closeModal(id) { 
+            playSound('click');
+            document.getElementById(id).classList.remove('active'); 
+        }
         
         function showNotification(msg) {
             const n = document.createElement('div');
@@ -501,4 +611,3 @@
     </script>
 </body>
 </html>
-
