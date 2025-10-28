@@ -3,758 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kit de Seguridad Psicológica Virtual</title>
+    <title>Kit de Seguridad Psicológica Virtual - Takeda</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #e8eef3 100%);
-            min-height: 100vh;
-            padding: 20px;
-            overflow-x: hidden;
-        }
-        
-        .container {
-            max-width: 1600px;
-            margin: 0 auto;
-        }
-        
-        /* Header con barco */
-        header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        
-        .hero-boat {
-            width: 100%;
-            max-width: 500px;
-            margin: 10px auto 20px;
-            padding: 30px;
-            background: linear-gradient(135deg, #e8f4f8 0%, #b8dde6 50%, #7ec8d3 100%);
-            border-radius: 20px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-        }
-        
-        .boat-container {
-            position: relative;
-            height: 120px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .simple-boat {
-            font-size: 5em;
-            animation: floating 3s ease-in-out infinite;
-            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3));
-        }
-        
-        @keyframes floating {
-            0%, 100% { transform: translateY(0) rotate(-2deg); }
-            50% { transform: translateY(-15px) rotate(2deg); }
-        }
-        
-        .waves {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 40px;
-            background: linear-gradient(180deg, transparent 0%, rgba(126, 200, 211, 0.3) 100%);
-        }
-        
-        .wave {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 200%;
-            height: 100%;
-            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 100'%3E%3Cpath fill='rgba(94, 156, 148, 0.5)' d='M0,50 Q300,20 600,50 T1200,50 L1200,100 L0,100 Z'/%3E%3C/svg%3E");
-            background-size: 50% 100%;
-            animation: wave 10s linear infinite;
-        }
-        
-        .wave:nth-child(2) {
-            bottom: -5px;
-            opacity: 0.6;
-            animation: wave 12s linear infinite reverse;
-        }
-        
-        @keyframes wave {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-        
-        .boat-text {
-            text-align: center;
-            color: #5a6c7d;
-            margin-top: 15px;
-            font-size: 0.95em;
-            font-weight: 500;
-        }
-        
-        h1 {
-            color: #2c3e50;
-            font-size: 2em;
-            margin-bottom: 8px;
-        }
-        
-        .subtitle {
-            color: #5a6c7d;
-            font-size: 1em;
-            margin-bottom: 20px;
-        }
-        
-        /* Meeting Controls */
-        .meeting-phase {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 20px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-        }
-        
-        .phase-selector {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-        
-        .phase-btn {
-            flex: 1;
-            min-width: 150px;
-            padding: 15px 20px;
-            border: 3px solid transparent;
-            border-radius: 12px;
-            font-size: 1em;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            background: #f8f9fa;
-            color: #5a6c7d;
-        }
-        
-        .phase-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-        
-        .phase-btn.active {
-            transform: scale(1.05);
-        }
-        
-        .phase-btn.inicio.active {
-            background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%);
-            color: white;
-            border-color: #56ab2f;
-        }
-        
-        .phase-btn.durante.active {
-            background: linear-gradient(135deg, #f7b733 0%, #ffd93d 100%);
-            color: #333;
-            border-color: #f7b733;
-        }
-        
-        .phase-btn.cierre.active {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            color: white;
-            border-color: #4facfe;
-        }
-        
-        /* Main Interactive Area */
-        .interactive-workspace {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-        
-        /* Voice Meter Cards */
-        .voice-meter {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-        }
-        
-        .voice-meter h2 {
-            color: #2c3e50;
-            margin-bottom: 20px;
-            font-size: 1.5em;
-        }
-        
-        .color-cards-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-        }
-        
-        .voice-card {
-            padding: 25px 15px;
-            border-radius: 12px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 3px solid transparent;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .voice-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
-            transform: scale(0);
-            transition: transform 0.5s ease;
-        }
-        
-        .voice-card:hover::before,
-        .voice-card.selected::before {
-            transform: scale(1);
-        }
-        
-        .voice-card:hover {
-            transform: translateY(-5px) scale(1.03);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-        
-        .voice-card.selected {
-            transform: scale(1.08);
-            border-width: 4px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-        }
-        
-        .voice-card.green {
-            background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%);
-            color: white;
-        }
-        
-        .voice-card.green.selected {
-            border-color: #56ab2f;
-        }
-        
-        .voice-card.yellow {
-            background: linear-gradient(135deg, #f7b733 0%, #ffd93d 100%);
-            color: #333;
-        }
-        
-        .voice-card.yellow.selected {
-            border-color: #f7b733;
-        }
-        
-        .voice-card.orange {
-            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-            color: white;
-        }
-        
-        .voice-card.orange.selected {
-            border-color: #ff6b35;
-        }
-        
-        .card-icon {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-        }
-        
-        .card-title {
-            font-weight: bold;
-            font-size: 1.1em;
-            margin-bottom: 8px;
-        }
-        
-        .card-desc {
-            font-size: 0.85em;
-            line-height: 1.3;
-        }
-        
-        /* Quick Actions */
-        .quick-actions {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-        }
-        
-        .quick-actions h2 {
-            color: #2c3e50;
-            margin-bottom: 20px;
-            font-size: 1.5em;
-        }
-        
-        .action-btn {
-            width: 100%;
-            padding: 18px;
-            margin-bottom: 12px;
-            border: none;
-            border-radius: 12px;
-            font-size: 1em;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            justify-content: center;
-        }
-        
-        .action-btn:hover {
-            transform: translateX(5px);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-        }
-        
-        .action-btn.spray {
-            background: linear-gradient(135deg, #a8e6cf 0%, #dcedc1 100%);
-            color: #2c3e50;
-        }
-        
-        .action-btn.faro {
-            background: linear-gradient(135deg, #a8322d 0%, #d66860 100%);
-            color: white;
-        }
-        
-        .action-btn.bloom {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-        
-        /* Truth Cards */
-        .truth-cards-section {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-        }
-        
-        .truth-cards-section h2 {
-            color: #2c3e50;
-            margin-bottom: 15px;
-            font-size: 1.5em;
-        }
-        
-        .cards-display-mode {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-        
-        .mode-btn {
-            padding: 10px 20px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            background: white;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 600;
-            color: #5a6c7d;
-        }
-        
-        .mode-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-        }
-        
-        .mode-btn.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border-color: #667eea;
-        }
-        
-        .questions-grid {
-            display: grid;
-            gap: 15px;
-        }
-        
-        .questions-grid.card-mode {
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-        }
-        
-        .question-card {
-            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
-            padding: 25px;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
-            border: 2px solid transparent;
-            min-height: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            font-size: 1.05em;
-            font-weight: 500;
-        }
-        
-        .question-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 6px;
-            height: 100%;
-            transition: all 0.3s ease;
-        }
-        
-        .question-card::after {
-            content: '📋';
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 1.2em;
-            opacity: 0;
-            transition: all 0.3s ease;
-        }
-        
-        .question-card:hover {
-            transform: translateY(-8px) scale(1.03);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-        }
-        
-        .question-card:hover::after {
-            opacity: 1;
-        }
-        
-        .question-card:active {
-            transform: scale(0.98);
-        }
-        
-        .question-card.inicio::before {
-            background: linear-gradient(180deg, #56ab2f 0%, #a8e063 100%);
-        }
-        
-        .question-card.inicio:hover {
-            border-color: #56ab2f;
-            background: linear-gradient(135deg, #f0fff4 0%, #c6f6d5 100%);
-        }
-        
-        .question-card.durante::before {
-            background: linear-gradient(180deg, #f7b733 0%, #ffd93d 100%);
-        }
-        
-        .question-card.durante:hover {
-            border-color: #f7b733;
-            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
-        }
-        
-        .question-card.cierre::before {
-            background: linear-gradient(180deg, #4facfe 0%, #00f2fe 100%);
-        }
-        
-        .question-card.cierre:hover {
-            border-color: #4facfe;
-            background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
-        }
-        
-        .question-phase-badge {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.75em;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-        
-        .question-phase-badge.inicio {
-            background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%);
-            color: white;
-        }
-        
-        .question-phase-badge.durante {
-            background: linear-gradient(135deg, #f7b733 0%, #ffd93d 100%);
-            color: #333;
-        }
-        
-        .question-phase-badge.cierre {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            color: white;
-        }
-        
-        .card-flip-animation {
-            animation: cardFlip 0.6s ease;
-        }
-        
-        @keyframes cardFlip {
-            0% { transform: rotateY(0deg); }
-            50% { transform: rotateY(90deg); }
-            100% { transform: rotateY(0deg); }
-        }
-        
-        /* Recognition Board */
-        .recognition-section {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            border-radius: 15px;
-            padding: 30px;
-            color: white;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
-        }
-        
-        .recognition-section h2 {
-            margin-bottom: 20px;
-            font-size: 1.8em;
-        }
-        
-        .recognition-input-group {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 25px;
-        }
-        
-        .recognition-input-group input {
-            flex: 1;
-            padding: 15px;
-            border: none;
-            border-radius: 10px;
-            font-size: 1em;
-        }
-        
-        .recognition-input-group button {
-            padding: 15px 30px;
-            background: white;
-            color: #4facfe;
-            border: none;
-            border-radius: 10px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .recognition-input-group button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-        
-        .recognition-list {
-            display: grid;
-            gap: 12px;
-            max-height: 300px;
-            overflow-y: auto;
-        }
-        
-        .recognition-item {
-            background: rgba(255,255,255,0.2);
-            backdrop-filter: blur(10px);
-            padding: 18px;
-            border-radius: 10px;
-            border-left: 4px solid white;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 15px;
-            animation: slideIn 0.5s ease;
-        }
-        
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateX(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        
-        .recognition-text {
-            flex: 1;
-            min-width: 200px;
-        }
-        
-        .delete-btn {
-            background: #e74c3c;
-            color: white;
-            border: none;
-            padding: 10px 18px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            font-size: 0.95em;
-            white-space: nowrap;
-            flex-shrink: 0;
-        }
-        
-        .delete-btn:hover {
-            background: #c0392b;
-            transform: scale(1.08);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        }
-        
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.7);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-            animation: fadeIn 0.3s ease;
-        }
-        
-        .modal.active {
-            display: flex;
-        }
-        
-        .modal-content {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            max-width: 600px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
-            animation: slideUp 0.3s ease;
-        }
-        
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .modal-content h3 {
-            color: #2c3e50;
-            margin-bottom: 20px;
-            font-size: 1.8em;
-        }
-        
-        .modal-content p {
-            color: #5a6c7d;
-            line-height: 1.8;
-            margin-bottom: 15px;
-        }
-        
-        .close-modal {
-            background: #e74c3c;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 10px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 20px;
-            transition: all 0.3s ease;
-        }
-        
-        .close-modal:hover {
-            background: #c0392b;
-            transform: scale(1.05);
-        }
-        
-        /* Spray Effect */
-        .spray-effect {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 10em;
-            opacity: 0;
-            pointer-events: none;
-            transition: all 1.5s ease;
-            z-index: 999;
-        }
-        
-        .spray-effect.active {
-            opacity: 0.4;
-            font-size: 20em;
-        }
-        
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .interactive-workspace {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .color-cards-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .phase-selector {
-                flex-direction: column;
-            }
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #f5f7fa 0%, #e8eef3 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 1600px; margin: 0 auto; }
+        header { text-align: center; margin-bottom: 20px; }
+        .hero-boat { width: 100%; max-width: 500px; margin: 10px auto 20px; padding: 30px; background: linear-gradient(135deg, #e8f4f8 0%, #b8dde6 50%, #7ec8d3 100%); border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
+        .simple-boat { font-size: 5em; animation: floating 3s ease-in-out infinite; text-align: center; }
+        @keyframes floating { 0%, 100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-15px) rotate(2deg); } }
+        .boat-text { text-align: center; color: #5a6c7d; margin-top: 15px; }
+        h1 { color: #2c3e50; font-size: 2em; margin-bottom: 8px; }
+        .subtitle { color: #5a6c7d; margin-bottom: 20px; }
+        .meeting-phase, .voice-meter, .quick-actions, .truth-cards-section { background: white; border-radius: 15px; padding: 25px; margin-bottom: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+        .phase-selector { display: flex; gap: 10px; flex-wrap: wrap; }
+        .phase-btn { flex: 1; min-width: 150px; padding: 15px 20px; border: 3px solid transparent; border-radius: 12px; font-size: 1em; font-weight: bold; cursor: pointer; background: #f8f9fa; color: #5a6c7d; transition: all 0.3s; }
+        .phase-btn:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .phase-btn.active { transform: scale(1.05); }
+        .phase-btn.inicio.active { background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%); color: white; }
+        .phase-btn.durante.active { background: linear-gradient(135deg, #f7b733 0%, #ffd93d 100%); color: #333; }
+        .phase-btn.cierre.active { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; }
+        .interactive-workspace { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; margin-bottom: 20px; }
+        .color-cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+        .voice-card { padding: 25px 15px; border-radius: 12px; text-align: center; cursor: pointer; transition: all 0.3s; border: 3px solid transparent; }
+        .voice-card:hover { transform: translateY(-5px) scale(1.03); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .voice-card.selected { transform: scale(1.08); border-width: 4px; box-shadow: 0 15px 40px rgba(0,0,0,0.3); }
+        .voice-card.green { background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%); color: white; }
+        .voice-card.green.selected { border-color: #56ab2f; }
+        .voice-card.yellow { background: linear-gradient(135deg, #f7b733 0%, #ffd93d 100%); color: #333; }
+        .voice-card.yellow.selected { border-color: #f7b733; }
+        .voice-card.orange { background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%); color: white; }
+        .voice-card.orange.selected { border-color: #ff6b35; }
+        .card-icon { font-size: 2.5em; margin-bottom: 10px; }
+        .card-title { font-weight: bold; font-size: 1.1em; margin-bottom: 8px; }
+        .card-desc { font-size: 0.85em; }
+        .action-btn { width: 100%; padding: 18px; margin-bottom: 12px; border: none; border-radius: 12px; font-size: 1em; font-weight: bold; cursor: pointer; transition: all 0.3s; }
+        .action-btn:hover { transform: translateX(5px); box-shadow: 0 5px 20px rgba(0,0,0,0.2); }
+        .action-btn.spray { background: linear-gradient(135deg, #a8e6cf 0%, #dcedc1 100%); color: #2c3e50; }
+        .action-btn.faro { background: linear-gradient(135deg, #a8322d 0%, #d66860 100%); color: white; }
+        .action-btn.bloom { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        .mode-btn { padding: 10px 20px; border: 2px solid #e0e0e0; border-radius: 8px; background: white; cursor: pointer; font-weight: 600; color: #5a6c7d; transition: all 0.3s; }
+        .mode-btn:hover { transform: translateY(-2px); }
+        .mode-btn.active { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        .questions-grid { display: grid; gap: 15px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+        .question-card { background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%); padding: 25px; border-radius: 12px; cursor: pointer; transition: all 0.4s; position: relative; border: 2px solid transparent; min-height: 100px; display: flex; align-items: center; justify-content: center; text-align: center; font-weight: 500; }
+        .question-card::before { content: ''; position: absolute; top: 0; left: 0; width: 6px; height: 100%; }
+        .question-card:hover { transform: translateY(-8px) scale(1.03); box-shadow: 0 15px 35px rgba(0,0,0,0.15); }
+        .question-card.inicio::before { background: linear-gradient(180deg, #56ab2f 0%, #a8e063 100%); }
+        .question-card.inicio:hover { border-color: #56ab2f; background: linear-gradient(135deg, #f0fff4 0%, #c6f6d5 100%); }
+        .question-card.durante::before { background: linear-gradient(180deg, #f7b733 0%, #ffd93d 100%); }
+        .question-card.durante:hover { border-color: #f7b733; background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%); }
+        .question-card.cierre::before { background: linear-gradient(180deg, #4facfe 0%, #00f2fe 100%); }
+        .question-card.cierre:hover { border-color: #4facfe; background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%); }
+        .question-phase-badge { position: absolute; top: 10px; left: 10px; padding: 4px 12px; border-radius: 20px; font-size: 0.75em; font-weight: bold; text-transform: uppercase; }
+        .question-phase-badge.inicio { background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%); color: white; }
+        .question-phase-badge.durante { background: linear-gradient(135deg, #f7b733 0%, #ffd93d 100%); color: #333; }
+        .question-phase-badge.cierre { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; }
+        .recognition-section { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); border-radius: 15px; padding: 30px; color: white; box-shadow: 0 5px 20px rgba(0,0,0,0.15); }
+        .shared-notice { background: rgba(255,255,255,0.2); padding: 12px 18px; border-radius: 10px; margin-bottom: 20px; font-size: 0.9em; }
+        .recognition-input-group { display: flex; gap: 10px; margin-bottom: 25px; }
+        .recognition-input-group input { flex: 1; padding: 15px; border: none; border-radius: 10px; font-size: 1em; }
+        .recognition-input-group button { padding: 15px 30px; background: white; color: #4facfe; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; transition: all 0.3s; }
+        .recognition-input-group button:hover:not(:disabled) { transform: scale(1.05); }
+        .recognition-input-group button:disabled { opacity: 0.5; cursor: not-allowed; }
+        .recognition-list { display: grid; gap: 12px; max-height: 400px; overflow-y: auto; }
+        .recognition-item { background: rgba(255,255,255,0.2); padding: 18px; border-radius: 10px; border-left: 4px solid white; display: flex; justify-content: space-between; align-items: center; gap: 15px; animation: slideIn 0.5s ease; }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
+        .recognition-text { flex: 1; word-break: break-word; }
+        .delete-btn { background: #e74c3c; color: white; border: none; padding: 10px 18px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: all 0.3s; white-space: nowrap; }
+        .delete-btn:hover:not(:disabled) { background: #c0392b; transform: scale(1.08); }
+        .delete-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); z-index: 1000; align-items: center; justify-content: center; }
+        .modal.active { display: flex; }
+        .modal-content { background: white; border-radius: 20px; padding: 40px; max-width: 700px; width: 90%; max-height: 80vh; overflow-y: auto; }
+        .modal-content h3 { color: #2c3e50; margin-bottom: 20px; font-size: 1.8em; }
+        .modal-content h4 { color: #2c3e50; margin-top: 20px; margin-bottom: 10px; }
+        .modal-content p { color: #5a6c7d; line-height: 1.8; margin-bottom: 15px; }
+        .modal-content .kit-item { background: #f8f9fa; padding: 15px; border-radius: 10px; margin-bottom: 15px; border-left: 4px solid #4facfe; }
+        .close-modal { background: #e74c3c; color: white; border: none; padding: 12px 25px; border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 20px; transition: all 0.3s; }
+        .close-modal:hover { background: #c0392b; transform: scale(1.05); }
+        .spray-effect { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 10em; opacity: 0; pointer-events: none; transition: all 1.5s; z-index: 999; }
+        .spray-effect.active { opacity: 0.4; font-size: 20em; }
+        .spray-message { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(168, 230, 207, 0.95); padding: 30px; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.3); opacity: 0; pointer-events: none; transition: all 0.5s; z-index: 998; text-align: center; max-width: 500px; }
+        .spray-message.active { opacity: 1; }
+        .spray-message h3 { color: #2c3e50; margin-bottom: 10px; }
+        .spray-message p { color: #5a6c7d; }
+        @media (max-width: 1024px) { .interactive-workspace { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) { .color-cards-grid { grid-template-columns: 1fr; } .phase-selector { flex-direction: column; } }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>🧠 Kit de Seguridad Psicológica Virtual</h1>
-            <p class="subtitle">Herramienta interactiva para reuniones virtuales seguras y productivas</p>
-            
+            <h1>🧠 Kit de Seguridad Psicológica Virtual - Takeda</h1>
+            <p class="subtitle">Pequeños gestos para grandes conversaciones</p>
             <div class="hero-boat">
-                <div class="boat-container">
-                    <div class="simple-boat">⛵</div>
-                    <div class="waves">
-                        <div class="wave"></div>
-                        <div class="wave"></div>
-                    </div>
-                </div>
+                <div class="simple-boat">⛵</div>
                 <p class="boat-text">Navegando juntos hacia conversaciones más seguras</p>
             </div>
         </header>
         
-        <!-- Phase Selector -->
         <div class="meeting-phase">
-            <h2 style="color: #2c3e50; margin-bottom: 15px;">📍 Fase de la Reunión</h2>
+            <h2 style="color: #2c3e50; margin-bottom: 10px;">📍 Fase de la Reunión</h2>
+            <p style="color: #5a6c7d; margin-bottom: 15px;">No tienes que usar todo a la vez — elige lo que el equipo necesite ese día</p>
             <div class="phase-selector">
-                <button class="phase-btn inicio active" onclick="setPhase('inicio')">
-                    🌅 Inicio
-                </button>
-                <button class="phase-btn durante" onclick="setPhase('durante')">
-                    💬 Durante
-                </button>
-                <button class="phase-btn cierre" onclick="setPhase('cierre')">
-                    🌟 Cierre
-                </button>
+                <button class="phase-btn inicio active" onclick="setPhase('inicio')">🟢 Inicio</button>
+                <button class="phase-btn durante" onclick="setPhase('durante')">🟡 Durante</button>
+                <button class="phase-btn cierre" onclick="setPhase('cierre')">🔵 Cierre</button>
             </div>
         </div>
         
-        <!-- Main Workspace -->
         <div class="interactive-workspace">
-            <!-- Voice Meter -->
             <div class="voice-meter">
-                <h2>🎨 Medidor de Voz</h2>
-                <p style="color: #5a6c7d; margin-bottom: 20px;">Haz clic en una tarjeta para expresar tu estado sin interrumpir</p>
+                <h2>🌈 Tarjetas de Colores</h2>
+                <p style="color: #5a6c7d; margin-bottom: 20px;">¿Quieres decir algo sin interrumpir? Usa una tarjeta para mantener la conversación fluida y respetuosa</p>
                 <div class="color-cards-grid">
                     <div class="voice-card green" onclick="selectVoiceCard(this, 'green')">
                         <div class="card-icon">🟢</div>
                         <div class="card-title">Verde</div>
                         <div class="card-desc">Estoy escuchando atentamente</div>
                     </div>
-                    
                     <div class="voice-card yellow" onclick="selectVoiceCard(this, 'yellow')">
                         <div class="card-icon">🟡</div>
                         <div class="card-title">Amarillo</div>
                         <div class="card-desc">Tengo una pregunta</div>
                     </div>
-                    
                     <div class="voice-card orange" onclick="selectVoiceCard(this, 'orange')">
                         <div class="card-icon">🟠</div>
                         <div class="card-title">Naranja</div>
@@ -763,74 +136,93 @@
                 </div>
             </div>
             
-            <!-- Quick Actions -->
             <div class="quick-actions">
                 <h2>⚡ Acciones Rápidas</h2>
-                <button class="action-btn spray" onclick="activateSpray()">
-                    🌿 Usar Spray de Calma
-                </button>
-                <button class="action-btn faro" onclick="showFaro()">
-                    🏮 Ver Guía del Faro
-                </button>
-                <button class="action-btn bloom" onclick="showBloom()">
-                    📱 Curso Bloom
-                </button>
+                <button class="action-btn spray" onclick="activateBreathing()">🧘 Pausa de Respiración</button>
+                <button class="action-btn faro" onclick="showFaro()">🌟 El Faro - Tu Guía</button>
+                <button class="action-btn bloom" onclick="showBloom()">📱 Curso Bloom</button>
             </div>
         </div>
         
-        <!-- Truth Cards -->
         <div class="truth-cards-section">
-            <h2>💬 Cartas de la Verdad</h2>
-            <p style="color: #5a6c7d; margin-bottom: 15px;">Haz clic en una pregunta para copiarla al portapapeles y usarla en tu reunión</p>
-            
+            <h2>🃏 Cartas de la Verdad</h2>
+            <p style="color: #5a6c7d; margin-bottom: 15px;">Pequeñas frases para grandes conversaciones. Haz clic para copiar al portapapeles</p>
             <div class="cards-display-mode">
                 <button class="mode-btn active" onclick="setCardMode('all')">📚 Ver Todas</button>
-                <button class="mode-btn" onclick="setCardMode('current')">🎯 Solo Fase Actual</button>
+                <button class="mode-btn" onclick="setCardMode('current')">🎯 Fase Actual</button>
                 <button class="mode-btn" onclick="shuffleCards()">🔀 Mezclar</button>
             </div>
-            
-            <div id="questionsContainer" class="questions-grid card-mode"></div>
+            <div id="questionsContainer" class="questions-grid"></div>
         </div>
         
-        <!-- Recognition Board -->
         <div class="recognition-section">
-            <h2>📋 Tablero de Reconocimiento</h2>
-            <p style="margin-bottom: 20px;">Comparte un agradecimiento o reconocimiento al equipo</p>
-            
+            <h2>💌 Tablero de Reconocimiento</h2>
+            <p style="margin-bottom: 15px;">Al final de la reunión, escribe un pequeño agradecimiento. Pequeños gestos refuerzan la confianza y el sentido de equipo.</p>
+            <div class="shared-notice">🌐 <strong>Tablero compartido:</strong> Visible para todos los usuarios</div>
             <div class="recognition-input-group">
-                <input type="text" id="recognitionInput" placeholder="Ej: Gracias por escuchar con paciencia..." />
-                <button onclick="addRecognition()">Agregar 💚</button>
+                <input type="text" id="recognitionInput" placeholder='Ej: "Gracias por escuchar con paciencia"' maxlength="200" />
+                <button id="addBtn" onclick="addRecognition()">Agregar 💚</button>
             </div>
-            
-            <div class="recognition-list" id="recognitionList">
-                <div class="recognition-item">
-                    <span class="recognition-text">💚 "Gracias por escuchar con paciencia."</span>
-                    <button class="delete-btn" onclick="this.parentElement.remove()">🗑️ Eliminar</button>
-                </div>
-                <div class="recognition-item">
-                    <span class="recognition-text">✨ "Aprecio que hayas sido tan claro(a) al explicar."</span>
-                    <button class="delete-btn" onclick="this.parentElement.remove()">🗑️ Eliminar</button>
-                </div>
+            <div id="recognitionList" class="recognition-list">
+                <div style="text-align: center; padding: 20px;">⏳ Cargando...</div>
             </div>
         </div>
     </div>
     
-    <!-- Modals -->
     <div id="faroModal" class="modal">
         <div class="modal-content">
-            <h3>🏮 El Faro - Guía del Kit</h3>
-            <p><strong>El Faro es tu guía</strong> para usar este kit de manera efectiva en reuniones virtuales.</p>
+            <h3>🌟 El Faro: tu guía para crear espacios seguros</h3>
             
-            <h4 style="color: #2c3e50; margin-top: 20px; margin-bottom: 10px;">¿Qué contiene el kit?</h4>
-            <ul style="color: #5a6c7d; line-height: 1.8;">
-                <li><strong>🎨 Medidor de Voz:</strong> Expresa tu estado sin interrumpir</li>
-                <li><strong>💬 Cartas de la Verdad:</strong> Preguntas para abrir diálogo</li>
-                <li><strong>📋 Tablero de Reconocimiento:</strong> Refuerza la confianza</li>
-                <li><strong>🌿 Ancla de la Calma:</strong> Momento de concentración</li>
-            </ul>
+            <p><strong>¿Qué es El Faro?</strong><br>
+            Es una pequeña guía que te ayuda a recordar por qué existe el kit, cómo usarlo y cómo cada elemento puede ayudarte a cuidar la seguridad psicológica del grupo.</p>
             
-            <h4 style="color: #2c3e50; margin-top: 20px; margin-bottom: 10px;">💡 Consejos de uso:</h4>
-            <p>No necesitas usar todos los elementos a la vez. Elige lo que mejor se adapte al momento y al ánimo del equipo.</p>
+            <h4>💬 ¿Por qué existe este kit?</h4>
+            <p>Porque en Takeda creemos que la seguridad psicológica no nace de grandes discursos, sino de pequeños gestos: cómo escuchamos, cómo preguntamos, y cómo damos espacio a las ideas de los demás.</p>
+            <p>Este kit está aquí para acompañarte en esos momentos, fortalecer la confianza y crear reuniones donde todos puedan hablar con libertad, respeto y serenidad.</p>
+            
+            <h4>🎁 ¿Qué contiene?</h4>
+            <p style="margin-bottom: 20px;">Cada elemento tiene un propósito especial:</p>
+            
+            <div class="kit-item">
+                <strong>🌈 Tarjetas de colores</strong><br>
+                ¿Quieres decir algo sin interrumpir? Usa una tarjeta. Te ayudan a mantener la conversación fluida y respetuosa.
+            </div>
+            
+            <div class="kit-item">
+                <strong>💌 Cartas de la verdad</strong><br>
+                ¿Sientes que tu equipo necesita reflexionar o empatizar? Elige una carta: cada una invita a pensar y conectar desde la emoción.
+            </div>
+            
+            <div class="kit-item">
+                <strong>⭐ Tablero de reconocimiento</strong><br>
+                ¿Quieres cerrar con gratitud? Escribe un agradecimiento o algo positivo que notaste durante la reunión. ¡Reconocer fortalece la confianza!
+            </div>
+            
+            <div class="kit-item">
+                <strong>📱 Tarjeta QR de Bloom</strong><br>
+                ¿Te gustaría seguir aprendiendo sobre seguridad psicológica? Escanéala y descubre más recursos e ideas.
+            </div>
+            
+            <div class="kit-item">
+                <strong>🧘 Pausa de Respiración</strong><br>
+                ¿Necesitas un momento para respirar antes de comenzar? Usa la pausa de respiración guiada para marcar el inicio y centrar la energía del grupo en el espacio virtual.
+            </div>
+            
+            <h4>🪄 ¿Cómo se usa?</h4>
+            <p style="margin-bottom: 20px;">Este kit está hecho para reuniones reales: cortas, con muchas ideas y poco tiempo.<br>
+            No tienes que usar todo a la vez —elige lo que el equipo necesite ese día—.</p>
+            
+            <p><strong>💭 ¿Vas a empezar una reunión?</strong><br>
+            Crea el ambiente. Usa la pausa de respiración para marcar el inicio y elige una carta con una pregunta o emoción.</p>
+            
+            <p><strong>👂 ¿Están en plena conversación?</strong><br>
+            Apóyate en las tarjetas de colores o en las cartas de la verdad. Sirven para expresar, pedir la palabra o aclarar ideas sin romper la armonía.</p>
+            
+            <p><strong>💖 ¿Es momento de cerrar?</strong><br>
+            Tómate un minuto para agradecer o reconocer algo positivo. Usa el tablero o una carta de cierre para reflexionar sobre lo aprendido.</p>
+            
+            <h4>💡 Recuerda</h4>
+            <p>Usar el kit no es cambiar la forma de trabajar, sino mejorar cómo nos escuchamos. Con el tiempo, estas pequeñas acciones hacen que las reuniones sean más seguras, más humanas y mucho más efectivas.</p>
             
             <button class="close-modal" onclick="closeModal('faroModal')">Cerrar</button>
         </div>
@@ -838,274 +230,210 @@
     
     <div id="bloomModal" class="modal">
         <div class="modal-content">
-            <h3>📱 Curso de Seguridad Psicológica en Bloom</h3>
-            <p style="font-size: 1.1em;">Amplía tus conocimientos sobre seguridad psicológica con nuestro curso completo en Bloom.</p>
-            
+            <h3>🎧 Seguridad Psicológica en Bloom</h3>
+            <p>Cada kit incluye una tarjeta con código QR que te lleva al curso de Bloom sobre seguridad psicológica.</p>
             <div style="text-align: center; margin: 30px 0;">
-                <div style="width: 150px; height: 150px; background: white; margin: 0 auto; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 4em; box-shadow: 0 5px 20px rgba(0,0,0,0.1);">
-                    📲
-                </div>
-                <p style="margin-top: 20px; color: #5a6c7d;">Escanea el código QR en tu tarjeta física para acceder</p>
+                <div style="width: 150px; height: 150px; background: #f0f0f0; margin: 0 auto; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 4em;">📲</div>
+                <p style="margin-top: 20px; color: #5a6c7d; font-weight: 600;">Escanea el código QR en tu tarjeta física</p>
             </div>
-            
+            <p>Descubre herramientas para crear espacios donde todos se sientan seguros para compartir ideas y aprender de los errores.</p>
             <button class="close-modal" onclick="closeModal('bloomModal')">Cerrar</button>
         </div>
     </div>
     
-    <div class="spray-effect" id="sprayEffect">💨</div>
+    <div class="spray-effect" id="breathingEffect">
+        <div style="width: 200px; height: 200px; background: radial-gradient(circle, #a8e6cf 0%, #56ab2f 100%); border-radius: 50%; animation: breathe 4s ease-in-out infinite;"></div>
+    </div>
+    <div class="spray-message" id="breathingMessage">
+        <h3>🧘 Pausa de Respiración</h3>
+        <p><strong>Inhala profundo... Exhala despacio...</strong></p>
+        <p style="font-style: italic; margin-top: 10px;">Tómate un momento para centrar tu energía</p>
+    </div>
+    
+    <style>
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.5); opacity: 0.8; }
+        }
+    </style>
     
     <script>
         const questions = {
-            inicio: [
-                "¿Cómo nos sentimos hoy?",
-                "¿Qué necesitamos para participar tranquilo(a)s?",
-                "¿Cuál es el objetivo de nuestra reunión?"
-            ],
-            durante: [
-                "¿Ya escuchamos todos los puntos de vista?",
-                "¿Nos estamos haciendo entender?",
-                "¿Necesitamos algún ejemplo para entender mejor?"
-            ],
-            cierre: [
-                "¿Cuál es la idea que me llevo de la conversación?",
-                "¿Qué apreciamos de cómo nos escuchamos hoy?",
-                "¿Qué tareas nos llevamos para seguir avanzando?"
-            ]
+            inicio: ["¿Cómo nos sentimos hoy?", "¿Qué es algo pequeño que te hizo sonreír esta semana?", "¿Cuál es el objetivo de nuestra reunión?"],
+            durante: ["¿Ya escuchamos todos los puntos de vista?", "¿Nos estamos haciendo entender?", "¿Necesitamos algún ejemplo para entender mejor?"],
+            cierre: ["¿Cuál es la idea que me llevo de la conversación?", "¿Qué apreciamos de cómo nos escuchamos hoy?", "¿Qué tareas nos llevamos para seguir avanzando?"]
         };
         
-        const phaseLabels = {
-            inicio: '🟢 Inicio',
-            durante: '🟡 Durante',
-            cierre: '🔵 Cierre'
-        };
+        const phaseLabels = { inicio: '🟢 Inicio', durante: '🟡 Durante', cierre: '🔵 Cierre' };
+        let currentPhase = 'inicio', cardDisplayMode = 'all';
         
-        let currentPhase = 'inicio';
-        let cardDisplayMode = 'all';
+        document.addEventListener('DOMContentLoaded', function() {
+            updateQuestions();
+            loadRecognitions();
+            setInterval(loadRecognitions, 10000);
+            document.getElementById('recognitionInput').addEventListener('keypress', e => { if (e.key === 'Enter') addRecognition(); });
+        });
         
         function setPhase(phase) {
             currentPhase = phase;
-            
-            // Update phase buttons
-            document.querySelectorAll('.phase-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
+            document.querySelectorAll('.phase-btn').forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
-            
-            // Update questions
             updateQuestions();
         }
         
         function setCardMode(mode) {
             cardDisplayMode = mode;
-            
-            // Update mode buttons
-            document.querySelectorAll('.mode-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
+            document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
-            
             updateQuestions();
         }
         
         function updateQuestions() {
             const container = document.getElementById('questionsContainer');
             container.innerHTML = '';
-            
             let questionsToShow = [];
             
             if (cardDisplayMode === 'current') {
-                // Show only current phase questions
-                questions[currentPhase].forEach((question, index) => {
-                    questionsToShow.push({
-                        text: question,
-                        phase: currentPhase,
-                        id: `${currentPhase}-${index}`
-                    });
-                });
+                questions[currentPhase].forEach((q, i) => questionsToShow.push({ text: q, phase: currentPhase }));
             } else {
-                // Show all questions
-                Object.keys(questions).forEach(phase => {
-                    questions[phase].forEach((question, index) => {
-                        questionsToShow.push({
-                            text: question,
-                            phase: phase,
-                            id: `${phase}-${index}`
-                        });
-                    });
-                });
+                Object.keys(questions).forEach(phase => questions[phase].forEach(q => questionsToShow.push({ text: q, phase: phase })));
             }
             
             questionsToShow.forEach(q => {
                 const card = document.createElement('div');
                 card.className = `question-card ${q.phase}`;
-                card.setAttribute('data-id', q.id);
-                
                 const badge = document.createElement('div');
                 badge.className = `question-phase-badge ${q.phase}`;
                 badge.textContent = phaseLabels[q.phase];
-                
                 const text = document.createElement('div');
                 text.textContent = q.text;
                 text.style.paddingTop = '25px';
-                
                 card.appendChild(badge);
                 card.appendChild(text);
-                card.onclick = () => copyQuestion(q.text, card);
-                
+                card.onclick = () => { navigator.clipboard.writeText(q.text); showNotification('✅ Copiado: ' + q.text.substring(0, 30) + '...'); };
                 container.appendChild(card);
-            });
-        }
-        
-        function copyQuestion(text, cardElement) {
-            navigator.clipboard.writeText(text).then(() => {
-                cardElement.classList.add('card-flip-animation');
-                showNotification('✅ Pregunta copiada: ' + text.substring(0, 30) + '...');
-                
-                setTimeout(() => {
-                    cardElement.classList.remove('card-flip-animation');
-                }, 600);
             });
         }
         
         function shuffleCards() {
             const container = document.getElementById('questionsContainer');
             const cards = Array.from(container.children);
-            
-            // Shuffle array
             for (let i = cards.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [cards[i], cards[j]] = [cards[j], cards[i]];
             }
-            
-            // Clear and re-append in shuffled order
             container.innerHTML = '';
-            cards.forEach(card => {
-                card.style.animation = 'cardFlip 0.6s ease';
-                container.appendChild(card);
-            });
-            
+            cards.forEach(card => container.appendChild(card));
             showNotification('🔀 Cartas mezcladas');
         }
         
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                showNotification('✅ Pregunta copiada al portapapeles');
+        async function loadRecognitions() {
+            try {
+                const result = await window.storage.list('recognition:', true);
+                if (result && result.keys) {
+                    const items = [];
+                    for (const key of result.keys) {
+                        try {
+                            const data = await window.storage.get(key, true);
+                            if (data && data.value) items.push({ key: key, data: JSON.parse(data.value) });
+                        } catch (e) {}
+                    }
+                    items.sort((a, b) => b.data.timestamp - a.data.timestamp);
+                    displayRecognitions(items);
+                }
+            } catch (e) {
+                document.getElementById('recognitionList').innerHTML = '<div style="text-align:center;padding:20px;">Modo sin conexión</div>';
+            }
+        }
+        
+        function displayRecognitions(items) {
+            const list = document.getElementById('recognitionList');
+            if (items.length === 0) {
+                list.innerHTML = '<div style="text-align:center;padding:20px;font-style:italic;">No hay reconocimientos aún. ¡Sé el primero!</div>';
+                return;
+            }
+            list.innerHTML = '';
+            items.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'recognition-item';
+                const text = document.createElement('span');
+                text.className = 'recognition-text';
+                text.textContent = item.data.emoji + ' "' + item.data.text + '"';
+                const btn = document.createElement('button');
+                btn.className = 'delete-btn';
+                btn.textContent = '🗑️ Eliminar';
+                btn.onclick = () => deleteRecognition(item.key);
+                div.appendChild(text);
+                div.appendChild(btn);
+                list.appendChild(div);
             });
         }
         
-        function showNotification(message) {
-            const notification = document.createElement('div');
-            notification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%);
-                color: white;
-                padding: 15px 25px;
-                border-radius: 10px;
-                box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-                z-index: 2000;
-                animation: slideIn 0.3s ease;
-            `;
-            notification.textContent = message;
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.style.animation = 'slideOut 0.3s ease';
-                setTimeout(() => notification.remove(), 300);
-            }, 2000);
+        async function addRecognition() {
+            const input = document.getElementById('recognitionInput');
+            const text = input.value.trim();
+            if (!text) return;
+            const btn = document.getElementById('addBtn');
+            btn.disabled = true;
+            try {
+                const emojis = ['💚', '✨', '🌟', '💫', '🙌', '👏', '💙', '🎯'];
+                const emoji = emojis[Math.floor(Math.random() * emojis.length)];
+                const key = `recognition:${Date.now()}`;
+                await window.storage.set(key, JSON.stringify({ text, emoji, timestamp: Date.now() }), true);
+                input.value = '';
+                showNotification('✅ Reconocimiento agregado');
+                await loadRecognitions();
+            } catch (e) {
+                showNotification('❌ Error al guardar');
+            } finally {
+                btn.disabled = false;
+            }
+        }
+        
+        async function deleteRecognition(key) {
+            try {
+                await window.storage.delete(key, true);
+                showNotification('🗑️ Eliminado');
+                await loadRecognitions();
+            } catch (e) {
+                showNotification('❌ Error');
+            }
         }
         
         function selectVoiceCard(card, color) {
-            // Remove all selections
-            document.querySelectorAll('.voice-card').forEach(c => {
-                c.classList.remove('selected');
-            });
-            
-            // Select this card
+            document.querySelectorAll('.voice-card').forEach(c => c.classList.remove('selected'));
             card.classList.add('selected');
-            
-            const messages = {
-                green: '🟢 Estoy escuchando atentamente',
-                yellow: '🟡 Tengo una pregunta',
-                orange: '🟠 Podemos reformular esto'
-            };
-            
-            showNotification(messages[color]);
+            const msgs = { green: '🟢 Escuchando atentamente', yellow: '🟡 Tengo una pregunta', orange: '🟠 Reformulemos esto' };
+            showNotification(msgs[color]);
         }
         
-        function activateSpray() {
-            const effect = document.getElementById('sprayEffect');
+        function activateBreathing() {
+            const effect = document.getElementById('breathingEffect');
+            const message = document.getElementById('breathingMessage');
             effect.classList.add('active');
-            showNotification('🌿 Momento de calma activado');
-            
+            message.classList.add('active');
+            showNotification('🧘 Respira... Inhala... Exhala...');
             setTimeout(() => {
                 effect.classList.remove('active');
-            }, 1500);
+                message.classList.remove('active');
+            }, 8000);
         }
         
-        function showFaro() {
-            document.getElementById('faroModal').classList.add('active');
+        function showFaro() { document.getElementById('faroModal').classList.add('active'); }
+        function showBloom() { document.getElementById('bloomModal').classList.add('active'); }
+        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+        
+        function showNotification(msg) {
+            const n = document.createElement('div');
+            n.style.cssText = 'position:fixed;top:20px;right:20px;background:linear-gradient(135deg,#56ab2f 0%,#a8e063 100%);color:white;padding:15px 25px;border-radius:10px;box-shadow:0 5px 20px rgba(0,0,0,0.3);z-index:2000;';
+            n.textContent = msg;
+            document.body.appendChild(n);
+            setTimeout(() => n.remove(), 2000);
         }
         
-        function showBloom() {
-            document.getElementById('bloomModal').classList.add('active');
-        }
-        
-        function closeModal(modalId) {
-            document.getElementById(modalId).classList.remove('active');
-        }
-        
-        function addRecognition() {
-            const input = document.getElementById('recognitionInput');
-            const text = input.value.trim();
-            
-            if (text) {
-                const list = document.getElementById('recognitionList');
-                const item = document.createElement('div');
-                item.className = 'recognition-item';
-                
-                const emojis = ['💚', '✨', '🌟', '💫', '🙌', '👏', '💙', '🎯'];
-                const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
-                
-                const textSpan = document.createElement('span');
-                textSpan.className = 'recognition-text';
-                textSpan.textContent = randomEmoji + ' "' + text + '"';
-                
-                const deleteBtn = document.createElement('button');
-                deleteBtn.className = 'delete-btn';
-                deleteBtn.textContent = '🗑️ Eliminar';
-                deleteBtn.onclick = function() {
-                    item.remove();
-                };
-                
-                item.appendChild(textSpan);
-                item.appendChild(deleteBtn);
-                
-                list.insertBefore(item, list.firstChild);
-                
-                input.value = '';
-            }
-        }
-        
-        document.getElementById('recognitionInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                addRecognition();
-            }
-        });
-        
-        // Close modals when clicking outside
         document.querySelectorAll('.modal').forEach(modal => {
-            modal.addEventListener('click', function(e) {
-                if (e.target === modal) {
-                    modal.classList.remove('active');
-                }
-            });
+            modal.addEventListener('click', e => { if (e.target === modal) modal.classList.remove('active'); });
         });
-        
-        // Initialize questions
-        updateQuestions();
     </script>
 </body>
 </html>
-
