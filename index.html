@@ -158,7 +158,7 @@
         <div class="recognition-section">
             <h2>💌 Tablero de Reconocimiento</h2>
             <p style="margin-bottom: 15px;">Al final de la reunión, escribe un pequeño agradecimiento. Pequeños gestos refuerzan la confianza y el sentido de equipo.</p>
-            <div class="shared-notice">🌐 <strong>Tablero compartido:</strong> Visible para todos los usuarios</div>
+            <div class="shared-notice">🌐 <strong>Tablero compartido en tiempo real:</strong> Los reconocimientos son visibles para todos los usuarios del kit</div>
             <div class="recognition-input-group">
                 <input type="text" id="recognitionInput" placeholder='Ej: "Gracias por escuchar con paciencia"' maxlength="200" />
                 <button id="addBtn" onclick="addRecognition()">Agregar 💚</button>
@@ -257,7 +257,39 @@
         }
     </style>
     
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
     <script>
+        // Firebase configuration - Your Takeda Safety Kit Database
+        const firebaseConfig = {
+            apiKey: "AIzaSyDE1460OmvvTk8S0gVJTbUU4JAHXS-f8EM",
+            authDomain: "safety-kit-takeda.firebaseapp.com",
+            databaseURL: "https://safety-kit-takeda-default-rtdb.firebaseio.com",
+            projectId: "safety-kit-takeda",
+            storageBucket: "safety-kit-takeda.firebasestorage.app",
+            messagingSenderId: "474966309246",
+            appId: "1:474966309246:web:a09c6f325c0b0c7c461b2f"
+        };
+        
+        // Initialize Firebase with error handling
+        let database;
+        let firebaseInitialized = false;
+        
+        try {
+            if (typeof firebase !== 'undefined') {
+                if (!firebase.apps.length) {
+                    firebase.initializeApp(firebaseConfig);
+                }
+                database = firebase.database();
+                firebaseInitialized = true;
+                console.log('Firebase initialized successfully');
+            } else {
+                console.error('Firebase library not loaded');
+            }
+        } catch (e) {
+            console.error("Firebase initialization error:", e);
+        }
+        
         const questions = {
             inicio: ["¿Cómo nos sentimos hoy?", "¿Qué es algo pequeño que te hizo sonreír esta semana?", "¿Cuál es el objetivo de nuestra reunión?"],
             durante: ["¿Ya escuchamos todos los puntos de vista?", "¿Nos estamos haciendo entender?", "¿Necesitamos algún ejemplo para entender mejor?"],
@@ -270,7 +302,6 @@
         document.addEventListener('DOMContentLoaded', function() {
             updateQuestions();
             loadRecognitions();
-            setInterval(loadRecognitions, 10000);
             document.getElementById('recognitionInput').addEventListener('keypress', e => { if (e.key === 'Enter') addRecognition(); });
         });
         
@@ -328,21 +359,35 @@
         }
         
         async function loadRecognitions() {
-            try {
-                const result = await window.storage.list('recognition:', true);
-                if (result && result.keys) {
-                    const items = [];
-                    for (const key of result.keys) {
-                        try {
-                            const data = await window.storage.get(key, true);
-                            if (data && data.value) items.push({ key: key, data: JSON.parse(data.value) });
-                        } catch (e) {}
+            if (!firebaseInitialized || !database) {
+                document.getElementById('recognitionList').innerHTML = '<div style="text-align:center;padding:20px;color:#e74c3c;">⚠️ Conectando con la base de datos...</div>';
+                // Retry after 2 seconds
+                setTimeout(() => {
+                    if (firebaseInitialized && database) {
+                        loadRecognitions();
+                    } else {
+                        document.getElementById('recognitionList').innerHTML = '<div style="text-align:center;padding:20px;color:#e74c3c;">❌ No se pudo conectar. Recarga la página.</div>';
                     }
-                    items.sort((a, b) => b.data.timestamp - a.data.timestamp);
+                }, 2000);
+                return;
+            }
+            
+            try {
+                const ref = database.ref('recognitions');
+                ref.orderByChild('timestamp').limitToLast(50).on('value', (snapshot) => {
+                    const items = [];
+                    snapshot.forEach((childSnapshot) => {
+                        items.push({
+                            key: childSnapshot.key,
+                            data: childSnapshot.val()
+                        });
+                    });
+                    items.reverse(); // Most recent first
                     displayRecognitions(items);
-                }
+                });
             } catch (e) {
-                document.getElementById('recognitionList').innerHTML = '<div style="text-align:center;padding:20px;">Modo sin conexión</div>';
+                console.error('Error loading:', e);
+                document.getElementById('recognitionList').innerHTML = '<div style="text-align:center;padding:20px;color:#e74c3c;">❌ Error al cargar reconocimientos</div>';
             }
         }
         
@@ -373,30 +418,49 @@
             const input = document.getElementById('recognitionInput');
             const text = input.value.trim();
             if (!text) return;
+            
+            if (!firebaseInitialized || !database) {
+                showNotification('❌ Base de datos no disponible. Recarga la página.');
+                return;
+            }
+            
             const btn = document.getElementById('addBtn');
             btn.disabled = true;
+            
             try {
                 const emojis = ['💚', '✨', '🌟', '💫', '🙌', '👏', '💙', '🎯'];
                 const emoji = emojis[Math.floor(Math.random() * emojis.length)];
-                const key = `recognition:${Date.now()}`;
-                await window.storage.set(key, JSON.stringify({ text, emoji, timestamp: Date.now() }), true);
+                
+                const ref = database.ref('recognitions');
+                await ref.push({
+                    text: text,
+                    emoji: emoji,
+                    timestamp: Date.now()
+                });
+                
                 input.value = '';
                 showNotification('✅ Reconocimiento agregado');
-                await loadRecognitions();
             } catch (e) {
                 showNotification('❌ Error al guardar');
+                console.error('Error:', e);
             } finally {
                 btn.disabled = false;
             }
         }
         
         async function deleteRecognition(key) {
+            if (!firebaseInitialized || !database) {
+                showNotification('❌ Base de datos no disponible');
+                return;
+            }
+            
             try {
-                await window.storage.delete(key, true);
+                const ref = database.ref('recognitions/' + key);
+                await ref.remove();
                 showNotification('🗑️ Eliminado');
-                await loadRecognitions();
             } catch (e) {
-                showNotification('❌ Error');
+                showNotification('❌ Error al eliminar');
+                console.error('Error:', e);
             }
         }
         
