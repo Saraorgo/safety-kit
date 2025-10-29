@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kit de Seguridad Psicológica</title>
+    <title>Kit de Seguridad Psicológica Virtual - Takeda</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #f5f7fa 0%, #e8eef3 100%); min-height: 100vh; padding: 20px; }
@@ -104,75 +104,9 @@
         
         @keyframes voicePulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
         
-        /* Language selector icon */
-        .language-float-icon {
-            position: fixed;
-            bottom: 30px;
-            right: 190px;
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8em;
-            cursor: pointer;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-            transition: all 0.3s ease;
-            z-index: 1000;
-            border: 3px solid white;
-        }
-        
-        .language-float-icon:hover {
-            transform: scale(1.1);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.4);
-        }
-        
-        .language-menu {
-            position: fixed;
-            bottom: 100px;
-            right: 190px;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-            padding: 15px;
-            display: none;
-            z-index: 999;
-            min-width: 200px;
-        }
-        
-        .language-menu.active {
-            display: block;
-            animation: slideUp 0.3s ease;
-        }
-        
-        .language-option {
-            padding: 12px 15px;
-            cursor: pointer;
-            border-radius: 8px;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 500;
-        }
-        
-        .language-option:hover {
-            background: #f0f0f0;
-            transform: translateX(5px);
-        }
-        
-        .language-option.selected {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            color: white;
-        }
-        
         @media (max-width: 768px) {
             .music-float-icon { bottom: 20px; right: 20px; width: 50px; height: 50px; font-size: 1.5em; }
             .voice-float-icon { bottom: 20px; right: 85px; width: 50px; height: 50px; font-size: 1.5em; }
-            .language-float-icon { bottom: 20px; right: 150px; width: 50px; height: 50px; font-size: 1.5em; }
-            .language-menu { bottom: 80px; right: 150px; min-width: 180px; }
         }
         .action-btn.bloom { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
         .mode-btn { padding: 10px 20px; border: 2px solid #e0e0e0; border-radius: 8px; background: white; cursor: pointer; font-weight: 600; color: #5a6c7d; transition: all 0.3s; }
@@ -256,7 +190,7 @@
 <body>
     <div class="container">
         <header>
-            <h1>🧠 Kit de Seguridad Psicológica</h1>
+            <h1>🧠 Kit de Seguridad Psicológica Virtual - Takeda</h1>
             <p class="subtitle">Pequeños gestos para grandes conversaciones</p>
             <div class="hero-boat">
                 <div class="simple-boat">⛵</div>
@@ -264,10 +198,10 @@
             </div>
         </header>
         
-        <div class="meeting-phase" role="region" aria-label="Fase de la Reunión">
+        <div class="meeting-phase">
             <h2 style="color: #2c3e50; margin-bottom: 10px;">📍 Fase de la Reunión</h2>
             <p style="color: #5a6c7d; margin-bottom: 15px;">No tienes que usar todo a la vez — elige lo que el equipo necesite ese día</p>
-            <div class="phase-selector" role="group" aria-label="Seleccionar fase de la reunión">
+            <div class="phase-selector">
                 <button class="phase-btn inicio active" onclick="setPhase('inicio')">🟢 Inicio</button>
                 <button class="phase-btn durante" onclick="setPhase('durante')">🟡 Durante</button>
                 <button class="phase-btn cierre" onclick="setPhase('cierre')">🔵 Cierre</button>
@@ -275,10 +209,10 @@
         </div>
         
         <div class="interactive-workspace">
-            <div class="voice-meter" role="region" aria-label="Tarjetas de Colores">
+            <div class="voice-meter">
                 <h2>🌈 Tarjetas de Colores</h2>
                 <p style="color: #5a6c7d; margin-bottom: 20px;">¿Quieres decir algo sin interrumpir? Usa una tarjeta para mantener la conversación fluida y respetuosa</p>
-                <div class="color-cards-grid" role="group" aria-label="Seleccionar tarjeta de color">
+                <div class="color-cards-grid">
                     <div class="voice-card green" onclick="selectVoiceCard(this, 'green')">
                         <div class="card-icon">🟢</div>
                         <div class="card-title">Verde</div>
@@ -297,18 +231,18 @@
                 </div>
             </div>
             
-            <div class="quick-actions" role="region" aria-label="Acciones Rápidas">
+            <div class="quick-actions">
                 <h2>⚡ Acciones Rápidas</h2>
-                <button class="action-btn spray" onclick="activateBreathing()" aria-label="Activar pausa de respiración guiada">🧘 Pausa de Respiración</button>
-                <button class="action-btn faro" onclick="showFaro()" aria-label="Abrir guía del faro">🌟 El Faro - Tu Guía</button>
-                <button class="action-btn bloom" onclick="showBloom()" aria-label="Acceder a recursos de Bloom">📱 Curso Bloom</button>
+                <button class="action-btn spray" onclick="activateBreathing()">🧘 Pausa de Respiración</button>
+                <button class="action-btn faro" onclick="showFaro()">🌟 El Faro - Tu Guía</button>
+                <button class="action-btn bloom" onclick="showBloom()">📱 Curso Bloom</button>
             </div>
         </div>
         
-        <div class="truth-cards-section" role="region" aria-label="Cartas de la Verdad">
+        <div class="truth-cards-section">
             <h2>🃏 Cartas de la Verdad</h2>
             <p style="color: #5a6c7d; margin-bottom: 15px;">Pequeñas frases para grandes conversaciones. Haz clic para copiar al portapapeles</p>
-            <div class="cards-display-mode" role="group" aria-label="Modo de visualización de cartas">
+            <div class="cards-display-mode">
                 <button class="mode-btn active" onclick="setCardMode('all')">📚 Ver Todas</button>
                 <button class="mode-btn" onclick="setCardMode('current')">🎯 Fase Actual</button>
                 <button class="mode-btn" onclick="shuffleCards()">🔀 Mezclar</button>
@@ -316,14 +250,14 @@
             <div id="questionsContainer" class="questions-grid"></div>
         </div>
         
-        <div class="recognition-section" role="region" aria-label="Tablero de Reconocimiento">
+        <div class="recognition-section">
             <h2>💌 Tablero de Reconocimiento</h2>
             <p style="margin-bottom: 15px;">Al final de la reunión, escribe un pequeño agradecimiento. Pequeños gestos refuerzan la confianza y el sentido de equipo.</p>
             <div class="recognition-input-group">
-                <input type="text" id="recognitionInput" placeholder='Ej: "Gracias por escuchar con paciencia"' maxlength="200" aria-label="Escribe tu reconocimiento aquí" />
-                <button id="addBtn" onclick="addRecognition()" aria-label="Agregar reconocimiento al tablero">Agregar 💚</button>
+                <input type="text" id="recognitionInput" placeholder='Ej: "Gracias por escuchar con paciencia"' maxlength="200" />
+                <button id="addBtn" onclick="addRecognition()">Agregar 💚</button>
             </div>
-            <div id="recognitionList" class="recognition-list" role="list" aria-label="Lista de reconocimientos">
+            <div id="recognitionList" class="recognition-list">
                 <div style="text-align: center; padding: 20px;">⏳ Cargando...</div>
             </div>
         </div>
@@ -422,36 +356,6 @@
         🔊
     </div>
     
-    <!-- Floating language icon -->
-    <div class="language-float-icon" id="languageIcon" onclick="toggleLanguageMenu()" title="Cambiar Idioma">
-        🌐
-    </div>
-    
-    <!-- Language menu -->
-    <div class="language-menu" id="languageMenu">
-        <div class="language-option selected" onclick="changeLanguage('es')" data-lang="es">
-            🇪🇸 Español
-        </div>
-        <div class="language-option" onclick="changeLanguage('en')" data-lang="en">
-            🇺🇸 English
-        </div>
-        <div class="language-option" onclick="changeLanguage('pt')" data-lang="pt">
-            🇧🇷 Português
-        </div>
-        <div class="language-option" onclick="changeLanguage('fr')" data-lang="fr">
-            🇫🇷 Français
-        </div>
-        <div class="language-option" onclick="changeLanguage('de')" data-lang="de">
-            🇩🇪 Deutsch
-        </div>
-        <div class="language-option" onclick="changeLanguage('ja')" data-lang="ja">
-            🇯🇵 日本語
-        </div>
-        <div class="language-option" onclick="changeLanguage('zh')" data-lang="zh">
-            🇨🇳 中文
-        </div>
-    </div>
-    
     <style>
         @keyframes breathe {
             0%, 100% { transform: scale(1); opacity: 0.3; }
@@ -473,105 +377,6 @@
         // Text-to-speech voice reader
         let isVoiceReading = false;
         let currentUtterance = null;
-        let currentLanguage = 'es';
-        
-        // Translation API integration
-        async function translateText(text, targetLang) {
-            if (targetLang === 'es') return text; // Already in Spanish
-            
-            try {
-                // Using MyMemory Translation API (free, no key needed)
-                const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=es|${targetLang}`;
-                const response = await fetch(url);
-                const data = await response.json();
-                
-                if (data.responseData && data.responseData.translatedText) {
-                    return data.responseData.translatedText;
-                }
-                return text;
-            } catch (error) {
-                console.error('Translation error:', error);
-                return text;
-            }
-        }
-        
-        async function translatePage(targetLang) {
-            showNotification('🌐 Traduciendo página...');
-            
-            // Get all text elements
-            const elements = document.querySelectorAll('h1, h2, h3, h4, p, button, .card-title, .card-desc, .boat-text, .subtitle, input::placeholder');
-            
-            for (let element of elements) {
-                if (element.tagName === 'INPUT') {
-                    const placeholder = element.getAttribute('placeholder');
-                    if (placeholder) {
-                        const translated = await translateText(placeholder, targetLang);
-                        element.setAttribute('placeholder', translated);
-                    }
-                } else {
-                    const originalText = element.getAttribute('data-original') || element.textContent;
-                    if (!element.getAttribute('data-original')) {
-                        element.setAttribute('data-original', originalText);
-                    }
-                    
-                    const translated = await translateText(originalText, targetLang);
-                    element.textContent = translated;
-                }
-                
-                // Small delay to avoid rate limiting
-                await new Promise(resolve => setTimeout(resolve, 100));
-            }
-            
-            currentLanguage = targetLang;
-            showNotification('✅ Traducción completada');
-            playSound('success');
-        }
-        
-        function toggleLanguageMenu() {
-            const menu = document.getElementById('languageMenu');
-            menu.classList.toggle('active');
-            playSound('click');
-        }
-        
-        async function changeLanguage(lang) {
-            // Update selected option
-            document.querySelectorAll('.language-option').forEach(opt => {
-                opt.classList.remove('selected');
-            });
-            event.target.classList.add('selected');
-            
-            // Close menu
-            document.getElementById('languageMenu').classList.remove('active');
-            
-            // Translate page
-            await translatePage(lang);
-            
-            // Update voice language
-            updateVoiceLanguage(lang);
-        }
-        
-        function updateVoiceLanguage(lang) {
-            const langMap = {
-                'es': 'es-ES',
-                'en': 'en-US',
-                'pt': 'pt-BR',
-                'fr': 'fr-FR',
-                'de': 'de-DE',
-                'ja': 'ja-JP',
-                'zh': 'zh-CN'
-            };
-            
-            currentLanguage = langMap[lang] || 'es-ES';
-        }
-        
-        // Close language menu when clicking outside
-        document.addEventListener('click', function(event) {
-            const menu = document.getElementById('languageMenu');
-            const icon = document.getElementById('languageIcon');
-            if (!menu.contains(event.target) && event.target !== icon) {
-                menu.classList.remove('active');
-            }
-        });
         
         function speakText(text) {
             if ('speechSynthesis' in window) {
@@ -579,16 +384,16 @@
                 window.speechSynthesis.cancel();
                 
                 const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = currentLanguage; // Use current selected language
+                utterance.lang = 'es-ES'; // Spanish
                 utterance.rate = 0.9; // Slightly slower for clarity
                 utterance.pitch = 1;
                 utterance.volume = 0.8;
                 
-                // Try to find a voice in the current language
+                // Try to find a Spanish voice
                 const voices = window.speechSynthesis.getVoices();
-                const matchingVoice = voices.find(voice => voice.lang.startsWith(currentLanguage.split('-')[0]));
-                if (matchingVoice) {
-                    utterance.voice = matchingVoice;
+                const spanishVoice = voices.find(voice => voice.lang.startsWith('es'));
+                if (spanishVoice) {
+                    utterance.voice = spanishVoice;
                 }
                 
                 utterance.onend = function() {
